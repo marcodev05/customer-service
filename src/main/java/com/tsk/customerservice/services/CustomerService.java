@@ -9,6 +9,8 @@ public interface CustomerService {
 	
 	CustomerResponseDTO create(CustomerRequestDTO customerRequestDTO);
 	
+	CustomerResponseDTO update(String id, CustomerRequestDTO customerRequestDTO);
+	
 	CustomerResponseDTO getById(String id);
 	
 	List<CustomerResponseDTO> getAll();

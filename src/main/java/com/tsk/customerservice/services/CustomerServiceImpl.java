@@ -35,11 +35,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public CustomerResponseDTO create(CustomerRequestDTO customerRequestDTO) {
-		
 		Customer customer = customerMapper.fromCustomerRequestDTO(customerRequestDTO);
 		customer.setId(UUID.randomUUID().toString());
 		Customer savedCustomer = customerRepository.save(customer);
-		
 		return customerMapper.fromCustomer(savedCustomer);
 	}
 
@@ -48,7 +46,6 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public CustomerResponseDTO getById(String id){
-		
 		Customer customer = customerRepository.findById(id)
 				.orElseThrow(()->new NotFoundException("Not found"));
 		return customerMapper.fromCustomer(customer);
@@ -67,5 +64,17 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return response;
 	}
+
+
+
+	@Override
+	public CustomerResponseDTO update(String id, CustomerRequestDTO customerRequestDTO) {
+		Customer customer = customerMapper.fromCustomerRequestDTO(customerRequestDTO);
+		customer.setId(id);
+		Customer editedCustomer = customerRepository.save(customer);
+		return customerMapper.fromCustomer(editedCustomer);
+	}
+
+
 
 }

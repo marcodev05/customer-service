@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,11 +48,18 @@ public class CustomerAPI {
 	
 	@PostMapping("customers")
 	public ResponseEntity<CustomerResponseDTO>  create(@Valid @RequestBody CustomerRequestDTO request) {
-		
 		CustomerResponseDTO response = customerService.create(request);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	
+	
+	
+	
+	@PutMapping("customers/{id}")
+	public ResponseEntity<CustomerResponseDTO>  update(@Valid @RequestBody CustomerRequestDTO request,@PathVariable String id) {
+		CustomerResponseDTO response = customerService.update(id,request);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 
 }
