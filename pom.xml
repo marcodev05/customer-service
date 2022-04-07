@@ -40,6 +40,7 @@
 		<artifactId>mapstruct</artifactId>
 		<version>1.4.1.Final</version>
 	</dependency>
+	
 <!-- 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -59,6 +60,13 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
  -->
+
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-kubernetes</artifactId>
+		    <version>1.1.9.RELEASE</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -123,28 +131,6 @@
 		</compilerArgs>
     </configuration>
 </plugin>
-		<!--  <plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-compiler-plugin</artifactId>
-			  
-			    <configuration>
-			        <source>1.8</source>
-			        <target>1.8</target>
-			        <annotationProcessorPaths>
-			    
-			            <path>
-			                 <groupId>org.mapstruct</groupId>
-			                 <artifactId>mapstruct-processor</artifactId>
-			                 <version>${org.mapstruct.version}</version>
-			           </path>
-			        </annotationProcessorPaths>
-			        <compilerArgs>
-			           <compilerArg>
-			                 -Amapstruct.defaultComponentModel=spring
-			           </compilerArg>
-			        </compilerArgs>
-			    </configuration>
-			</plugin> -->
 			
 		</plugins>
 		<finalName>customer-service</finalName>

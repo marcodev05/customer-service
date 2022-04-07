@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: customer-deployment
+   labels:
+       app: customer
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: customer
+   template:
+      metadata:
+         labels:
+            app: customer
+      spec:
+         containers:
+         - name: customer
+           image: mrc05/customer-service-spring
+           ports:
+           - containerPort: 8081
+           env:
+           - name: POSTGRES_USER
+             valueFrom:
+               secretKeyRef:
+                 name: postgresdb-secret
+                 key: postgres-root-username
+           - name: POSTGRES_PASSWORD
+             valueFrom:
+               secretKeyRef:
+                 name: postgresdb-secret
+                 key: postgres-root-password
+           - name: DB_SERVER
+             valueFrom:
+               configMapKeyRef:
+                 name: postgresdb-configmap
+                 key: database_url
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: customer-service-ext
+spec:
+   selector:
+      app: customer
+   type: LoadBalancer
+   ports:
+      - protocol: TCP
+        port: 8081
+        targetPort: 8081
+        nodePort: 30000 
+
+
+
+
+
+
+
+
