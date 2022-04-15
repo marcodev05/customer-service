@@ -1,12 +1,17 @@
 package com.tsk.customerservice.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +26,7 @@ import com.tsk.customerservice.services.CustomerService;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin("*")
 public class CustomerAPI {
 	
 	@Autowired
@@ -59,6 +65,16 @@ public class CustomerAPI {
 	public ResponseEntity<CustomerResponseDTO>  update(@Valid @RequestBody CustomerRequestDTO request,@PathVariable String id) {
 		CustomerResponseDTO response = customerService.update(id,request);
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	
+	
+	@DeleteMapping("customers/delete/{id}")
+	public Map<String, Boolean> deleteProduct(@PathVariable("id") String id) {
+		customerService.delete(id);
+		Map<String, Boolean> response = new HashMap<String, Boolean>();
+		response.put("delete", Boolean.TRUE);
+		return response;
 	}
 
 

@@ -15,6 +15,6 @@ public interface CustomerService {
 	
 	List<CustomerResponseDTO> getAll();
 	
-	
+	void delete(String id);
 
 }

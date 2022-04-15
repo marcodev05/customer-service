@@ -5,16 +5,16 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
-
 public class CustomerRequestDTO {
 		
+		@Length(max = 50, message = "maximum 30 caractères")
 		private String fName;
 		
-		@Length(min = 7, message = "minimum 7 caractères")
+		@Length(max = 50, message = "maximum 30 caractères")
 		private String lName;
 		
 		@NotBlank
-		@Email(message = "verifier votre mail")
+		@Email(message = "Adresse email invalide")
 		private String email;
 		
 		private String address;

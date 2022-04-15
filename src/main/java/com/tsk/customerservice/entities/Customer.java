@@ -3,6 +3,7 @@ package com.tsk.customerservice.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Customer {
@@ -13,7 +14,6 @@ public class Customer {
 	private String fName;
 	
 	private String lName;
-	
 	
 	private String email;
 	

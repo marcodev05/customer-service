@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.validation.Validator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,18 +19,14 @@ import com.tsk.customerservice.repositories.CustomerRepository;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 	
-	private CustomerRepository customerRepository;
+	private final CustomerRepository customerRepository;
 	
-	
-	private CustomerMapper customerMapper;
-	
+	private final CustomerMapper customerMapper;
 	
 
 	public CustomerServiceImpl(CustomerRepository customerRepository,CustomerMapper customerMapper) {
-		
 		this.customerRepository = customerRepository;
-		this.customerMapper=customerMapper;
-		
+		this.customerMapper=customerMapper;	
 	}
 
 	
@@ -57,12 +55,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public List<CustomerResponseDTO> getAll() {
 		List<Customer> customer = customerRepository.findAll();
-		
 		List<CustomerResponseDTO> response = customer.stream()
 												.map((c)-> customerMapper.fromCustomer(c))
 												.collect(Collectors.toList());
 		
-		return response;
+		 return response;
 	}
 
 
@@ -73,6 +70,15 @@ public class CustomerServiceImpl implements CustomerService {
 		customer.setId(id);
 		Customer editedCustomer = customerRepository.save(customer);
 		return customerMapper.fromCustomer(editedCustomer);
+	}
+
+
+
+	@Override
+	public void delete(String id) {
+		Customer customer = customerRepository.findById(id)
+				.orElseThrow(()->new NotFoundException("Not found"));
+		customerRepository.delete(customer);
 	}
 
 
